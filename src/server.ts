@@ -1,6 +1,7 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
+import { Todo, User } from './typedefs';
 
-let todos = [
+let todos: Todo[] = [
   {
     id: 1,
     createdAt: '2023-04-18T18:46:53.301Z',
@@ -187,7 +188,7 @@ let todos = [
   }
 ];
 
-let users = [
+let users: User[] = [
   {
     id: 1,
     name: 'Miss Annie Welch',
@@ -313,7 +314,7 @@ const TODOS_ENPOINT = '/todos';
 app.use('/', express.json());
 
 app.get('/', (req, res) => {
-  res.send({ a: 123 });
+  res.send('Hello!');
 });
 
 app.get(TODOS_ENPOINT, (req, res) => {
@@ -324,14 +325,14 @@ app.post(TODOS_ENPOINT, (req, res) => {
   addTodo(req, res);
 })
 
-function getTodos(req: any, res: any) {
+function getTodos(req: Request, res: Response) {
   res.send(todos);
 }
 
-function addTodo(req: any, res: any) {
+function addTodo(req: Request<unknown, Todo, Omit<Todo, 'id'>>, res: Response<Todo>) {
   const { body } = req;
-
-  const max = Math.max(...todos.map((todo: any) => todo.id));
+   
+  const max = Math.max(...todos.map((todo: Todo) => todo.id));
 
   if (body.userId !== null
     && !users.some((user: any) => user.id === body.userId)
