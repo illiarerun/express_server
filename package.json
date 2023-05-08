@@ -4,6 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
+    "build": "tsc",
     "start": "nodemon ./src/server.ts"
   },
   "keywords": [],
