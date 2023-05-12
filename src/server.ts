@@ -341,13 +341,17 @@ app.listen(PORT, () => {
   console.log(`Server is running of port - ${PORT}`);
 });
 
-function addTodo(req: Request<unknown, Todo, Omit<Todo, 'id'>>, res: Response<Todo>) {
+function addTodo(
+  req: Request<unknown, Todo, Omit<Todo, 'id'>>, res: Response<Todo>
+) {
   const { body } = req;
 
-  const max = Math.max(...todos.map((todo: Todo) => todo.id));
+  const max = Math.max(
+    ...todos.map((todo: Todo) => todo.id)
+  );
 
   if (body.userId !== null
-      && !users.some((user: any) => user.id === body.userId)
+    && !users.some((user: any) => user.id === body.userId)
   ) {
     res.statusCode = 400;
     res.end('UserId is not valid');
