@@ -337,6 +337,10 @@ function getTodos(req: Request, res: Response) {
   res.send(todos);
 }
 
+app.listen(PORT, () => {
+  console.log(`Server is running of port - ${PORT}`);
+});
+
 function addTodo(
   req: Request<unknown, Todo, Omit<Todo, 'id'>>, res: Response<Todo>
 ) {
@@ -347,7 +351,7 @@ function addTodo(
   );
 
   if (body.userId !== null
-    && !users.some((user: any) => user.id === body.userId)
+      && !users.some((user: any) => user.id === body.userId)
   ) {
     res.statusCode = 400;
     res.end('UserId is not valid');
@@ -369,8 +373,4 @@ function addTodo(
 
   return;
 }
-
-app.listen(PORT, () => {
-  console.log(`Server is running of port - ${PORT}`);
-});
 
